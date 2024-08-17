@@ -9,11 +9,11 @@ const Footer = () => {
           rel="noreferrer"
           className="font-medium underline underline-offset-4"
         >
-          Stormix
+          tanishq & Shivansh
         </a>
         . The source code is available on{' '}
         <a
-          href="https://github.com/Stormix/msn"
+          href="https://github.com/Programmer-Shivansh/ChickNchat.git"
           target="_blank"
           rel="noreferrer"
           className="font-medium underline underline-offset-4"

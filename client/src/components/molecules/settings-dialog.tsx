@@ -2,7 +2,7 @@ import { useStore } from '@/lib/store'
 import { useWebRTC } from '@/providers/webrtc-provider'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogDescription } from '@radix-ui/react-dialog'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { generateUsername } from 'unique-username-generator'
 import { z } from 'zod'
@@ -10,6 +10,12 @@ import { Button } from '../ui/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
+import MagicProvider from '../magic/MagicProvider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Login from '@/components/magic/Login';
+import Dashboard from '@/components/magic/Dashboard';
+import MagicDashboardRedirect from '@/components/magic/MagicDashboardRedirect';
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -20,6 +26,11 @@ const SettingsDialog = () => {
   const { keywords, saveSettings, me, setName } = useStore()
   const [open, setOpen] = useState(!me?.name)
   const { setName: setChatName } = useWebRTC()
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    setToken(localStorage.getItem('token') ?? '');
+  }, [setToken]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -59,6 +70,18 @@ const SettingsDialog = () => {
             }}
             className="space-y-4"
           >
+               <MagicProvider>
+      <ToastContainer />
+      {process.env.NEXT_PUBLIC_MAGIC_API_KEY ? (
+        token.length > 0 ? (
+          <Dashboard token={token} setToken={setToken} />
+        ) : (
+          <Login token={token} setToken={setToken} />
+        )
+      ) : (
+        <MagicDashboardRedirect />
+      )}
+    </MagicProvider>
             <FormField
               control={form.control}
               name="name"
