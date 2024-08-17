@@ -1,10 +1,9 @@
-# Project: MSN - Omegle Clone
+# Project: ChickNchat
 
-P.S: this was build live on twitch: [https://twitch.tv/stormix_dev](https://twitch.tv/stormix_dev)
 
 ## Description
 
-MSN is an Omegle clone built using Bun, TypeScript, and React. It allows users to anonymously chat with strangers in a one-on-one video chat. The project is divided into two main components: the client, which is a web application built using Vite and React with TypeScript, and the server, which is responsible for managing user connections and chat sessions using Bun and TypeScript.
+ChickNchat is built using Bun, TypeScript, and React. It allows users to anonymously chat with strangers in a one-on-one video chat. The project is divided into two main components: the client, which is a web application built using Vite and React with TypeScript, and the server, which is responsible for managing user connections and chat sessions using Bun and TypeScript.
 
 ## Features
 
@@ -23,7 +22,7 @@ The project is organized into two subfolders:
 
 ## Getting Started
 
-Follow the steps below to get the MSN project up and running on your local machine:
+Follow the steps below to get the ChickNchat project up and running on your local machine:
 
 ### Client
 
@@ -63,7 +62,7 @@ The server will run on port 3000 for the bun websockets and 9000 for the Peerjs 
 
 
 ## Contributing
-If you would like to contribute to the MSN project, please follow these guidelines:
+If you would like to contribute to the ChickNchat project, please follow these guidelines:
 
 - Fork the repository on GitHub.
 
@@ -83,7 +82,7 @@ This project is licensed under the MIT License. For more information, please see
 
 ## Contact
 
-If you have any questions or need assistance with the MSN project, please feel free to contact the maintainers: <hello@stormix.co>
+If you have any questions or need assistance with the ChickNchat project, please feel free to contact the maintainers: <hello@stormix.co>
 
 
 
