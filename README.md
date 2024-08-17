@@ -76,10 +76,6 @@ If you would like to contribute to the ChickNchat project, please follow these g
 
 - Wait for code review and address any feedback.
 
-## License
-
-This project is licensed under the MIT License. For more information, please see the [LICENSE](./LICENSE) file.
-
 ## Contact
 
 If you have any questions or need assistance with the ChickNchat project, please feel free to contact the maintainers: <hello@stormix.co>
