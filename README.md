@@ -1,4 +1,4 @@
-# Project: ChickNchat
+# ChickNchat
 
 
 ## Description
