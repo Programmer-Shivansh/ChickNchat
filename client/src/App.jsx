@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useReducer} from "react";
 import io from "socket.io-client";
-import {ConnectButton} from "@rainbow-me/rainbowkit";
 import {useAccount, useWalletClient, useContractRead, useChainId} from "wagmi";
 import {CONSTANTS, PushAPI} from "@pushprotocol/restapi";
 
@@ -219,7 +218,7 @@ function App() {
                     video calls with strangersssss.
                   </p>
                   <div className="flex flex-row gap-4 justify-center">
-                    <ConnectButton showBalance={false} />
+                  <w3m-button/>
                     {walletConnected && !isPeerConnected && (
                       <button
                         className="btn btn-primary"

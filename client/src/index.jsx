@@ -1,50 +1,57 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import "./index.css";
-import "@rainbow-me/rainbowkit/styles.css";
-
-import {
-  darkTheme,
-  getDefaultWallets,
-  RainbowKitProvider,
-} from "@rainbow-me/rainbowkit";
-import {configureChains, createConfig, WagmiConfig} from "wagmi";
-import {mainnet, polygon} from "wagmi/chains";
-import {publicProvider} from "wagmi/providers/public";
-
+import { createWeb3Modal } from '@web3modal/wagmi/react';
+import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
+import { WagmiConfig } from 'wagmi';
+import { mainnet, arbitrum } from 'wagmi/chains';
 import App from "./App";
-import {inject} from "@vercel/analytics";
+import { inject } from "@vercel/analytics";
 
-const {chains, publicClient} = configureChains(
-  [mainnet, polygon],
-  [publicProvider()]
-);
-const {connectors} = getDefaultWallets({
-  appName: "Bored Anons",
-  projectId: "c79671f77e15d3c16d8df828931df7a7",
+// 0. Setup queryClient
+
+
+// 1. Get projectId from https://cloud.walletconnect.com
+const projectId = 'da1f6e845cb63aa084c3636cf412ab0d';
+
+// 2. Create wagmiConfig
+const metadata = {
+  name: 'AppKit',
+  description: 'AppKit Example',
+  url: 'https://web3modal.com', // origin must match your domain & subdomain
+  icons: ['https://avatars.githubusercontent.com/u/37784886']
+};
+
+const chains = [mainnet, arbitrum];
+const wagmiConfig = defaultWagmiConfig({
   chains,
-});
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
+  projectId,
+  metadata,
 });
 
+// 3. Create modal
+createWeb3Modal({
+  metadata,
+  wagmiConfig,
+  projectId, // Optional - defaults to your Cloud configuration
+});
+
+// Setup router
 const router = createBrowserRouter([
-  {path: "/", element: <App />},
-  {path: "/:uri", element: <App />},
+  { path: "/", element: <App /> },
+  { path: "/:uri", element: <App /> },
 ]);
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains} theme={darkTheme()}>
+      
         <RouterProvider router={router} />
-      </RainbowKitProvider>
+    
     </WagmiConfig>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
+
+// Initialize Vercel analytics
 inject();

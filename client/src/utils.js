@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const supportedAssets = {
   137: {
     push: "0x58001cc1a9e17a20935079ab40b1b8f4fc19efd1",
@@ -11,52 +12,48 @@ const supportedAssets = {
 };
 
 export function truncateAddress(input) {
-  if (input.length <= 5) {
+  if (input.length <= 10) {
     return input;
   } else {
-    return input.substring(0, 5) + "...." + input.substring(input.length - 5);
+    return `${input.substring(0, 6)}...${input.substring(input.length - 4)}`;
   }
 }
 
 export function getContractAddress(name, chainID) {
-  console.log("getContractAddress", name, chainID);
-  if (chainID === undefined) return undefined;
+  if (chainID === undefined || !supportedAssets[chainID]) return undefined;
   return supportedAssets[chainID][name];
 }
 
 export const balanceABI = [
   {
-    inputs: [{internalType: "address", name: "owner", type: "address"}],
+    inputs: [{ internalType: "address", name: "owner", type: "address" }],
     name: "balanceOf",
-    outputs: [{internalType: "uint256", name: "", type: "uint256"}],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
 ];
-export function isEthereumAddress(address) {
-  return /^(0x)?[0-9a-fA-F]{40}$/.test(address);
-}
-export async function reverseResolveAddress(address) {
-  if (isEthereumAddress(address)) {
-    const url = `https://api.unstoppabledomains.com/resolve/reverse/${address}`;
-    const headers = {
-      Authorization: `Bearer 8cpvqmldkyhbbheoupgx6cgjjvnpvnoih9exsrrmqrlamtcw`,
-    };
 
-    try {
-      const response = await axios.get(url, {headers});
-      if (
-        response.data.meta.domain === "" ||
-        response.data.meta.domain === null
-      ) {
-        return undefined;
-      } else {
-        return response.data.meta.domain;
-      }
-    } catch (error) {
-      throw error;
-    }
-  } else {
-    return undefined;
+export function isEthereumAddress(address) {
+  return /^(0x)?[0-9a-fA-F]{40}$/.test(address) && address.length === 42;
+}
+
+export async function reverseResolveAddress(address) {
+  if (!isEthereumAddress(address)) {
+    throw new Error("Invalid Ethereum address.");
+  }
+
+  const url = `https://api.unstoppabledomains.com/resolve/reverse/${address}`;
+  const headers = {
+    Authorization: `Bearer ${process.env.UNSTOPPABLE_DOMAINS_API_KEY}`,
+  };
+
+  try {
+    const response = await axios.get(url, { headers });
+    const domain = response.data.meta?.domain || undefined;
+    return domain;
+  } catch (error) {
+    console.error("Error resolving address:", error);
+    throw new Error("Failed to resolve address.");
   }
 }
