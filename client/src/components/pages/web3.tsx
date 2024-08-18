@@ -2,9 +2,6 @@ import {
     createWeb3Modal,
     defaultConfig,
     useWeb3Modal,
-    useWeb3ModalEvents,
-    useWeb3ModalState,
-    useWeb3ModalTheme
   } from '@web3modal/ethers/react'
   const projectId = import.meta.env.VITE_PROJECT_ID || "6"
   if (!projectId) {
@@ -59,8 +56,6 @@ import {
   export default function Web3() {
     // 4. Use modal hook
     const modal = useWeb3Modal()
-    const state = useWeb3ModalState()
-    const events = useWeb3ModalEvents()
   
     return (
       <>
