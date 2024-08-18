@@ -213,10 +213,9 @@ function App() {
             ) : (
               <div className="hero-content text-center">
                 <div className="max-w-md">
-                  <h1 className="text-5xl font-bold">Hello Anon!</h1>
+                  <h1 className="text-5xl font-bold">ChickNchat</h1>
                   <p className="py-6">
-                    ik you're bored, fret not anon, time to make some random
-                    video calls with strangersssss.
+                  Call a Stranger, Make a Friend: Because Who Needs Sleep?
                   </p>
                   <div className="flex flex-row gap-4 justify-center">
                     <ConnectButton showBalance={false} />

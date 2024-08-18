@@ -22,7 +22,7 @@ const {chains, publicClient} = configureChains(
   [publicProvider()]
 );
 const {connectors} = getDefaultWallets({
-  appName: "Bored Anons",
+  appName: "ChickNchat",
   projectId: "c79671f77e15d3c16d8df828931df7a7",
   chains,
 });
