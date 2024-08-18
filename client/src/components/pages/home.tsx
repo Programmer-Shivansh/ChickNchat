@@ -9,6 +9,7 @@ const Home = () => {
     <div className="flex flex-col md:flex-row h-full gap-8">
       <div className="w-full md:w-2/5 md:max-w-2xl flex flex-col gap-4">
         <div className="flex flex-col gap-4 h-full">
+         <w3m-button/>
           <div className="p-4 border-primary border rounded-md w-full h-1/2">
             <video autoPlay playsInline className="w-full h-full" id="stranger-video" ref={strangerRef} />
           </div>
